@@ -1,5 +1,5 @@
 <ul class="list-group">
-
-        <li class="list-group-item"><a href="tags/view/<?= $tag['tag_name'] ?>"><?=$tag['tag_name']?></a></li>
-
+    <? foreach ($posts as $post): ?>
+        <li class="list-group-item"><a href="posts/view/<?= $post['post_id'] ?>"><?=$post['post_subject']?></a></li>
+    <? endforeach ?>
 </ul>

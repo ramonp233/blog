@@ -24,5 +24,7 @@ class posts extends Controller{
         $post_id = $this->params[0];
 
         $this->post = get_first("SELECT * FROM post NATURAL JOIN user WHERE post_id='$post_id'");
+
+        $this->tags = get_all ("select * from post_tags natural join tag where post_id='$post_id'");
     }
 }
