@@ -2,9 +2,13 @@
 
 class posts extends Controller{
 
-	function index(){
-		$this->posts = get_all("SELECT * FROM post");
-	}
+    function index(){
+        $this->posts = get_all("SELECT * FROM post");
+        $_tags = get_all ("select * from post_tags natural join tag");
+        foreach ($_tags as $tag) {
+            $this->tags[$tag['post_id']][] = $tag['tag_name'];
+        }
+    }
 
     function index_ajax(){
 		echo "\$_POST:<br>";
