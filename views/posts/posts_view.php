@@ -6,7 +6,7 @@
         <div>
             <span class="badge badge-success"><?=$post['post_created']?></span><div class="pull-right">
                 <?foreach ($tags as $tag):?>
-                    <a href="tags/view/<?=$tag['tag_id']?>">
+                    <a href="tags/view/<?=$tag['tag_name']?>">
                         <span class="label label-info"><?=$tag['tag_name']?></span>
                     </a>
                 <?endforeach?>
