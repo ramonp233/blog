@@ -12,4 +12,25 @@
                 <?endforeach?>
             </div>
         </div>
+        <div class="actionBox">
+            <ul class="commentList">
+                <?foreach ($comments as $comment):?>
+                    <li style="list-style-type: none; margin: 10px 0; padding: 10px 0; border-bottom: 1px solid gray;">
+                        <div class="commentText">
+                            <p style="font-size: 14px;color:red;"><?=$comment['comment_author']?></p>
+                            <p style="font-size: 12px; "><?=$comment['comment_text']?></p>
+                            <span style="color: blue;" class="date sub-text">on <?=$comment['comment_created']?></span>
+                        </div>
+                    </li>
+                <?endforeach?>
+            </ul>
+            <form class="form-inline" role="form" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="data[comment_text]" placeholder="Your comments" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default">Add</button>
+                </div>
+            </form>
+        </div>
     </div>
