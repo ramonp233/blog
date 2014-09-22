@@ -29,7 +29,7 @@
                     <input class="form-control" type="text" name="data[comment_text]" placeholder="Your comments" />
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-default">Add</button>
+                    <button class="btn btn-default" type="submit">Add</button>
                 </div>
             </form>
         </div>
