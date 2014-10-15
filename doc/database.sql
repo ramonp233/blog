@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Loomise aeg: Sept 21, 2014 kell 02:02 EL
+-- Loomise aeg: Okt 15, 2014 kell 09:54 PL
 -- Serveri versioon: 5.6.20
 -- PHP versioon: 5.5.15
 
@@ -26,15 +26,23 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment_id` int(10) unsigned NOT NULL,
   `comment_author` varchar(50) NOT NULL,
   `comment_text` text NOT NULL,
-  `comment_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `comment_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `post_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Andmete tõmmistamine tabelile `comment`
 --
 
-INSERT INTO `comment` (`comment_id`, `comment_author`, `comment_text`, `comment_created`) VALUES
-  (1, 'Ramon Pääsuke', 'Suvaline kommentaari tekst.', '2014-09-20 23:33:23');
+INSERT INTO `comment` (`comment_id`, `comment_author`, `comment_text`, `comment_created`, `post_id`) VALUES
+  (1, 'Gunnar', 'aaaaaaaaaaaaaaaaaa', '2014-09-20 23:33:23', 1),
+  (2, 'Gunnar', 'dddddddddddddddddddd', '2014-09-21 00:37:19', 1),
+  (3, 'Gunnar', 'dfdsfsf', '2014-09-21 08:40:30', 1),
+  (4, 'Gunnar', 'sdfdsfsfsf', '2014-09-21 08:40:32', 1),
+  (5, 'Gunnar', 'Teeeegelt', '2014-09-21 08:40:38', 2),
+  (6, 'Gunnar', 'zsdczxc', '2014-09-21 08:46:26', 2),
+  (7, 'Gunnar', 'Tervitus teile', '2014-09-22 19:43:01', 2),
+  (8, 'Gunnar', 'asdas', '2014-10-15 19:52:26', 1);
 
 -- --------------------------------------------------------
 
@@ -62,25 +70,6 @@ INSERT INTO `post` (`post_id`, `post_subject`, `post_text`, `post_created`, `use
 -- --------------------------------------------------------
 
 --
--- Tabeli struktuur tabelile `post_comments`
---
-
-DROP TABLE IF EXISTS `post_comments`;
-CREATE TABLE IF NOT EXISTS `post_comments` (
-  `post_id` int(10) unsigned NOT NULL,
-  `comment_id` int(10) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Andmete tõmmistamine tabelile `post_comments`
---
-
-INSERT INTO `post_comments` (`post_id`, `comment_id`) VALUES
-  (1, 1);
-
--- --------------------------------------------------------
-
---
 -- Tabeli struktuur tabelile `post_tags`
 --
 
@@ -95,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `post_tags` (
 --
 
 INSERT INTO `post_tags` (`post_id`, `tag_id`) VALUES
-  (1, 3);
+  (1, 3),
+  (1, 4);
 
 -- --------------------------------------------------------
 
@@ -146,19 +136,13 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `deleted`) VALUES
 -- Indeksid tabelile `comment`
 --
 ALTER TABLE `comment`
-ADD PRIMARY KEY (`comment_id`);
+ADD PRIMARY KEY (`comment_id`,`post_id`);
 
 --
 -- Indeksid tabelile `post`
 --
 ALTER TABLE `post`
 ADD PRIMARY KEY (`post_id`), ADD KEY `user_id` (`user_id`);
-
---
--- Indeksid tabelile `post_comments`
---
-ALTER TABLE `post_comments`
-ADD PRIMARY KEY (`post_id`,`comment_id`), ADD KEY `comment_id` (`comment_id`);
 
 --
 -- Indeksid tabelile `post_tags`
@@ -186,7 +170,7 @@ ADD PRIMARY KEY (`user_id`);
 -- AUTO_INCREMENT tabelile `comment`
 --
 ALTER TABLE `comment`
-MODIFY `comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT tabelile `post`
 --
@@ -211,13 +195,6 @@ MODIFY `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `post`
 ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Piirangud tabelile `post_comments`
---
-ALTER TABLE `post_comments`
-ADD CONSTRAINT `post_comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`),
-ADD CONSTRAINT `post_comments_ibfk_2` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`comment_id`);
 
 --
 -- Piirangud tabelile `post_tags`
