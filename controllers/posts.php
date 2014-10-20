@@ -30,10 +30,5 @@ class posts extends Controller{
         $this->comments = get_all("SELECT * FROM comment WHERE post_id ='$post_id'");
     }
 
-    function view_post(){
-        $data = $_POST['data'];
-        $data['post_id'] = $this->params[0];
-        $data['comment_author'] = 'Gunnar';
-        insert('comment', $data);
-    }
+
 }
